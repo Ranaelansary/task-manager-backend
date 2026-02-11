@@ -3,8 +3,8 @@ import { User } from './User';
 
 @Entity('tasks')
 export class Task {
-  @PrimaryGeneratedColumn('uuid')
-  id!: string;
+  @PrimaryGeneratedColumn()
+  id!: number;
 
   @Column({ type: 'varchar', length: 255 })
   title!: string;
@@ -15,8 +15,8 @@ export class Task {
   @Column({ type: 'boolean', default: false })
   isCompleted!: boolean;
 
-  @Column({ type: 'uuid' })
-  userId!: string;
+  @Column({ type: 'int' })
+  userId!: number;
 
   @ManyToOne(() => User, (user) => user.tasks, { eager: false })
   @JoinColumn({ name: 'userId' })

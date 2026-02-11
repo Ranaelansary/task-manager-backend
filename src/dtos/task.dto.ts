@@ -20,14 +20,18 @@ export class UpdateTaskDto {
 
   @IsBoolean()
   @IsOptional()
+  completed?: boolean;
+
+  @IsBoolean()
+  @IsOptional()
   isCompleted?: boolean;
 }
 
 export class TaskResponseDto {
-  id!: string;
+  id!: number;
   title!: string;
   description?: string;
-  isCompleted!: boolean;
+  completed!: boolean;
   createdAt!: Date;
   updatedAt!: Date;
 }

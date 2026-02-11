@@ -69,9 +69,9 @@ export class AuthService {
     };
   }
 
-  private generateToken(userId: string, email: string): string {
+  private generateToken(userId: number, email: string): string {
     const secret: string = process.env.JWT_SECRET || 'your_secret_key';
-    const expiresIn = process.env.JWT_EXPIRATION || '7d';
+    const expiresIn = process.env.JWT_EXPIRATION;
     
     const token = jwt.sign(
       { userId, email },

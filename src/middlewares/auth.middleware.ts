@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { AuthService } from '../services/auth.service';
+import { serviceContainer } from '../services/container';
 import { HTTP_STATUS, ERROR_MESSAGES } from '../utils/constants';
 import { ApiError } from '../utils/ApiError';
 
@@ -19,7 +19,7 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
       throw new ApiError(HTTP_STATUS.UNAUTHORIZED, ERROR_MESSAGES.UNAUTHORIZED);
     }
 
-    const authService = new AuthService();
+    const authService = serviceContainer.getAuthService();
     const decoded = await authService.verifyToken(token);
     req.userId = decoded.userId;
 

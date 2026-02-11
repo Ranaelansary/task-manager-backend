@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { TaskService } from '../services/task.service';
+import { serviceContainer } from '../services/container';
 import { CreateTaskDto, UpdateTaskDto } from '../dtos/task.dto';
 import { HTTP_STATUS } from '../utils/constants';
 
@@ -12,11 +12,11 @@ declare global {
 }
 
 export class TaskController {
-  private taskService = new TaskService();
+  private taskService = serviceContainer.getTaskService();
 
   async createTask(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const userId = req.userId!;
+      const userId = Number(req.userId!);
       const createTaskDto: CreateTaskDto = req.body;
       const result = await this.taskService.createTask(userId, createTaskDto);
       res.status(HTTP_STATUS.CREATED).json({
@@ -31,7 +31,7 @@ export class TaskController {
 
   async getTasks(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const userId = req.userId!;
+      const userId = Number(req.userId!);
       const tasks = await this.taskService.getTasksByUserId(userId);
       res.status(HTTP_STATUS.OK).json({
         success: true,
@@ -45,9 +45,9 @@ export class TaskController {
 
   async getTaskById(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const userId = req.userId!;
+      const userId = Number(req.userId!);
       const { id } = req.params;
-      const task = await this.taskService.getTaskById(id as string, userId);
+      const task = await this.taskService.getTaskById(Number(id), userId);
       res.status(HTTP_STATUS.OK).json({
         success: true,
         data: task,
@@ -60,10 +60,10 @@ export class TaskController {
 
   async updateTask(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const userId = req.userId!;
+      const userId = Number(req.userId!);
       const { id } = req.params;
       const updateTaskDto: UpdateTaskDto = req.body;
-      const result = await this.taskService.updateTask(id as string, userId, updateTaskDto);
+      const result = await this.taskService.updateTask(Number(id), userId, updateTaskDto);
       res.status(HTTP_STATUS.OK).json({
         success: true,
         data: result,
@@ -76,9 +76,9 @@ export class TaskController {
 
   async deleteTask(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {
-      const userId = req.userId!;
+      const userId = Number(req.userId!);
       const { id } = req.params;
-      await this.taskService.deleteTask(id as string, userId);
+      await this.taskService.deleteTask(Number(id), userId);
       res.status(HTTP_STATUS.OK).json({
         success: true,
         data: null,

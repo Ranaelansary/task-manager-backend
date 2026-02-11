@@ -10,6 +10,13 @@ const app: Express = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
+
+// Request logging (debug)
+app.use((req, res, next) => {
+  console.log(`[${new Date().toISOString()}] ${req.method} ${req.path} - Full URL: ${req.originalUrl}`);
+  next();
+});
+
 // CORS headers (for frontend integration)
 app.use((req, res, next) => {
   res.header('Access-Control-Allow-Origin', process.env.CORS_ORIGIN || '*');

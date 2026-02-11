@@ -9,10 +9,7 @@ export class SignupDto {
   fullName!: string;
 
   @IsString()
-  @MinLength(8, { message: 'Password must be at least 8 characters' })
-  @Matches(/^(?=.*[a-zA-Z])(?=.*\d)(?=.*[@$!%*?&])/, {
-    message: 'Password must contain at least one letter, one number, and one special character',
-  })
+  @MinLength(6, { message: 'Password must be at least 6 characters' })
   password!: string;
 }
 
@@ -25,7 +22,7 @@ export class SigninDto {
 }
 
 export class AuthResponseDto {
-  id!: string;
+  id!: number;
   email!: string;
   fullName!: string;
   token!: string;

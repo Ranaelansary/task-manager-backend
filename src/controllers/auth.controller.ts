@@ -1,10 +1,10 @@
 import { Request, Response, NextFunction } from 'express';
-import { AuthService } from '../services/auth.service';
+import { serviceContainer } from '../services/container';
 import { SignupDto, SigninDto } from '../dtos/auth.dto';
 import { HTTP_STATUS } from '../utils/constants';
 
 export class AuthController {
-  private authService = new AuthService();
+  private authService = serviceContainer.getAuthService();
 
   async signup(req: Request, res: Response, next: NextFunction): Promise<void> {
     try {

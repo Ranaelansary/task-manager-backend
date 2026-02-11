@@ -13,8 +13,9 @@ export const AppDataSource = new DataSource({
   password: dbPassword,
   database: process.env.DB_NAME || 'task_manager',
   entities: [User, Task],
-  migrations: ['src/migrations/**/*.ts'],
-  synchronize: process.env.NODE_ENV !== 'production',
+  migrations: ['dist/migrations/**/*.js'],
+  synchronize: false,
+  migrationsRun: true,
   logging: process.env.NODE_ENV === 'development',
   subscribers: [],
   extra: {

@@ -1,23 +1,23 @@
 import app from './app';
 import { AppDataSource } from './config/database';
-import { logger } from './utils/logger';
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 5000;
 
 const startServer = async () => {
   try {
     // Initialize database
     if (!AppDataSource.isInitialized) {
+      console.log('[INFO] Initializing database connection...');
       await AppDataSource.initialize();
-      logger.info('Database connection established');
+      console.log('[INFO] Database connection established');
     }
 
     // Start server
     app.listen(PORT, () => {
-      logger.info(`Server is running on http://localhost:${PORT}`);
+      console.log(`[INFO] Server is running on http://localhost:${PORT}`);
     });
   } catch (error) {
-    logger.error('Failed to start server', error);
+    console.error('[ERROR] Failed to start server:', error);
     process.exit(1);
   }
 };

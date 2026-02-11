@@ -12,7 +12,7 @@ export class TaskService {
     this.taskRepository = AppDataSource.getRepository(Task);
   }
 
-  async createTask(userId: string, createTaskDto: CreateTaskDto): Promise<TaskResponseDto> {
+  async createTask(userId: number, createTaskDto: CreateTaskDto): Promise<TaskResponseDto> {
     const task = this.taskRepository.create({
       ...createTaskDto,
       userId,
@@ -23,7 +23,7 @@ export class TaskService {
     return this.mapTaskToResponse(task);
   }
 
-  async getTasksByUserId(userId: string): Promise<TaskResponseDto[]> {
+  async getTasksByUserId(userId: number): Promise<TaskResponseDto[]> {
     const tasks = await this.taskRepository.find({
       where: { userId },
       order: { createdAt: 'DESC' },
@@ -32,7 +32,7 @@ export class TaskService {
     return tasks.map((task) => this.mapTaskToResponse(task));
   }
 
-  async getTaskById(taskId: string, userId: string): Promise<TaskResponseDto> {
+  async getTaskById(taskId: number, userId: number): Promise<TaskResponseDto> {
     const task = await this.taskRepository.findOne({
       where: { id: taskId, userId },
     });
@@ -44,7 +44,7 @@ export class TaskService {
     return this.mapTaskToResponse(task);
   }
 
-  async updateTask(taskId: string, userId: string, updateTaskDto: UpdateTaskDto): Promise<TaskResponseDto> {
+  async updateTask(taskId: number, userId: number, updateTaskDto: UpdateTaskDto): Promise<TaskResponseDto> {
     const task = await this.taskRepository.findOne({
       where: { id: taskId, userId },
     });
@@ -53,13 +53,20 @@ export class TaskService {
       throw new ApiError(HTTP_STATUS.NOT_FOUND, ERROR_MESSAGES.TASK_NOT_FOUND);
     }
 
-    Object.assign(task, updateTaskDto);
+    // Handle both 'completed' and 'isCompleted' for compatibility
+    const updateData = { ...updateTaskDto };
+    if ('completed' in updateData && !('isCompleted' in updateData)) {
+      (updateData as any).isCompleted = (updateData as any).completed;
+      delete (updateData as any).completed;
+    }
+
+    Object.assign(task, updateData);
     await this.taskRepository.save(task);
 
     return this.mapTaskToResponse(task);
   }
 
-  async deleteTask(taskId: string, userId: string): Promise<void> {
+  async deleteTask(taskId: number, userId: number): Promise<void> {
     const task = await this.taskRepository.findOne({
       where: { id: taskId, userId },
     });
@@ -76,7 +83,7 @@ export class TaskService {
       id: task.id,
       title: task.title,
       description: task.description,
-      isCompleted: task.isCompleted,
+      completed: task.isCompleted,
       createdAt: task.createdAt,
       updatedAt: task.updatedAt,
     };
