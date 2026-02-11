@@ -44,28 +44,34 @@ npm install
 ```
 
 # Server Configuration
+```bash
 NODE_ENV=development
 PORT=5000
+```
 
 # Database Configuration
+```bash
 DB_HOST=127.0.0.1
 DB_PORT=3306
 DB_USER=root
 DB_PASSWORD=Nouran_20021999
 DB_NAME=task_manager
-
+```
 # JWT Configuration
+```bash
 JWT_SECRET=793dc845bac7bb643bd42e8df6679e4098be52f717a5ec46319ed24f50a90f6cd2384959cabc2fd1db89a576cc3260987c77230c3d52ec994538d5fb94f53bbe
 JWT_EXPIRATION=1h
+```
 
 # CORS Configuration
+```bash
 CORS_ORIGIN=http://localhost:3000
-
+```
 
 Run the backend server:
-
+```bash
 npm run dev
-
+```
 The server will start on `http://localhost:5000`
 
 ```
