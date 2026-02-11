@@ -1,37 +1,21 @@
-# Task Manager Backend
 
-A production-ready Task Manager API built with Express.js, TypeScript, and MySQL with TypeORM.
+## Backend
 
-## Features
+- Node.js
+- TypeScript
+- Express.js
+- TypeORM
+- MySQL database
+- JWT for authentication
+- bcryptjs for password hashing
 
-- **Authentication**: JWT-based authentication for signup and signin
-- **Task Management**: CRUD operations for personal tasks
-- **Validation**: Input validation with class-validator
-- **Error Handling**: Comprehensive error handling with custom error classes
-- **Database**: MySQL with TypeORM for type-safe database operations
-- **Security**: Password hashing with bcryptjs
+## Setup & Run
+- Prerequisites
+- Node.js (v18 or higher)
+- MySQL (XAMPP or similar)
 
-## Tech Stack
 
-- **Runtime**: Node.js
-- **Language**: TypeScript
-- **Framework**: Express.js
-- **Database**: MySQL
-- **ORM**: TypeORM
-- **Authentication**: JWT
-- **Validation**: class-validator, class-transformer
-- **Password Hashing**: bcryptjs
-
-## Prerequisites
-
-- Node.js (v16 or higher)
-- npm or yarn
-- MySQL 5.7 or higher
-- Git
-
-## Installation
-
-1. Clone the repository:
+## Clone the repository:
 ```bash
 git clone https://github.com/RanaElansary/task-manager-backend.git
 cd task-manager-backend
@@ -81,4 +65,19 @@ The server will start on `http://localhost:5000`
 | PUT    | /api/tasks/:id        | Update task (title, desc, done) | Yes   |
 | DELETE | /api/tasks/:id        | Delete task                     | Yes   |
 
+## Postman Collection
+
+**File**: `taskmanger.postman_collection.json`
+
+### Structure & Usage
+
+- **auth** folder: Signup + Signin (public — run first to get token)
+- **tasks** folder: Create, Get all, Get one, Update, Delete (protected — uses Bearer {{token}})
+
+**Steps**:
+1. Import the collection into Postman
+2. Run Signin (or Signup) → token is auto-saved
+3. Run any request in the **tasks** folder
+
+All protected endpoints use Bearer Authentication automatically.
 
