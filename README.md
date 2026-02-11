@@ -79,5 +79,59 @@ The server will start on `http://localhost:5000`
 2. Run Signin (or Signup) → token is auto-saved
 3. Run any request in the **tasks** folder
 
+Important Decisions During Implementation
+
+### Backend (Server Side)
+
+1. **Using Node.js, Express, and TypeScript**  
+   I used Node.js with Express to build the backend.  
+   I used TypeScript instead of JavaScript.  
+
+   **Why?**  
+   - TypeScript helps catch mistakes early  
+   - Code becomes clearer and easier to understand
+
+2. **Splitting the Code into Folders**  
+   The backend is divided into:  
+   - Routes  
+   - Controllers  
+   - Entities  
+   - Middlewares  
+
+   **Why?**  
+   - Each file has one job  
+   - Easier to read and fix problems  
+   - Code is more organized
+
+3. **Using JWT for Login**  
+   When the user logs in, the server sends a JWT token.  
+   This token is used to check if the user is logged in.  
+
+   **Why?**  
+   - Secure way to log in  
+   - No need to save sessions on the server
+
+4. **Protecting Task APIs**  
+   Task routes can only be used if the user is logged in.  
+   This is done using an authentication middleware.  
+
+   **Why?**  
+   - Only the user can see and manage their own tasks
+
+5. **Using MySQL Database**  
+   I used MySQL to store users and tasks.  
+   TypeORM is used to connect the app to the database.  
+
+   **Why?**  
+   - MySQL is reliable  
+   - Easy to manage relations between users and tasks
+
+6. **Using .env File**  
+   Database info and secret keys are stored in a .env file.  
+
+   **Why?**  
+   - Keeps passwords safe  
+   - Easy to change settings later
+
 All protected endpoints use Bearer Authentication automatically.
 
