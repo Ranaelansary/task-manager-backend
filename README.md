@@ -63,11 +63,6 @@ JWT_SECRET=793dc845bac7bb643bd42e8df6679e4098be52f717a5ec46319ed24f50a90f6cd2384
 JWT_EXPIRATION=1h
 ```
 
-# CORS Configuration
-```bash
-CORS_ORIGIN=http://localhost:3000
-```
-
 Run the backend server:
 ```bash
 npm run dev
@@ -76,4 +71,14 @@ The server will start on `http://localhost:5000`
 
 ```
 
+# API Endpoints
 
+| Method | Endpoint              | Description                     | Auth? |
+|--------|-----------------------|---------------------------------|-------|
+| POST   | /api/auth/signup      | Register new user               | No    |
+| POST   | /api/auth/signin      | Login & get JWT token           | No    |
+| POST   | /api/tasks            | Create new task                 | Yes   |
+| GET    | /api/tasks            | List all my tasks               | Yes   |
+| GET    | /api/tasks/:id        | Get one task                    | Yes   |
+| PUT    | /api/tasks/:id        | Update task (title, desc, done) | Yes   |
+| DELETE | /api/tasks/:id        | Delete task                     | Yes   |
